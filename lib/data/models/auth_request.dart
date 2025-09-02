@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class RegisterRequest extends Equatable {
+class AuthRequest extends Equatable {
   final String email;
   final String password;
 
-  const RegisterRequest({required this.email, required this.password});
+  const AuthRequest({required this.email, required this.password});
 
   Map<String, dynamic> toJson() => {"email": email, "password": password};
 

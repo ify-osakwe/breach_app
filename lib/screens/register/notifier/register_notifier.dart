@@ -1,6 +1,7 @@
 import 'package:breach/data/breach_api.dart';
 import 'package:breach/data/common/api_response_model.dart';
-import 'package:breach/data/models/register_request.dart';
+import 'package:breach/data/local/secure_storage.dart';
+import 'package:breach/data/models/auth_request.dart';
 import 'package:breach/screens/register/model/register_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +21,7 @@ class RegisterNotifier extends Notifier<RegisterState> {
   }
 
   Future<void> register({required BuildContext context}) async {
-    final request = RegisterRequest(
+    final request = AuthRequest(
       email: state.emailController.text,
       password: state.passwordController.text,
     );
@@ -28,10 +29,11 @@ class RegisterNotifier extends Notifier<RegisterState> {
     try {
       final apiResult = await BreachApi.instance.register(request: request);
       switch (apiResult) {
-        case ApiSuccess(data: final register):
-          print("RegisterResponse ${register.token} ... ${register.userId}");
-        case ApiFailure(error: final response):
-          print("Error ${response.error} ... ${response.message}");
+        case ApiSuccess(data: final authResponse):
+          await SecureStorage.instance.setAuthToken(authResponse.token);
+          await SecureStorage.instance.setUserId("${authResponse.userId}");
+        case ApiFailure(error: final errorResponse):
+          debugPrint("Error ${errorResponse.error},${errorResponse.message}");
       }
     } finally {
       state = state.copyWith(isLoading: false);

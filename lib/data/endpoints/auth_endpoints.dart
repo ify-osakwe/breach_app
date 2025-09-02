@@ -1,18 +1,24 @@
 import 'package:breach/data/common/api_client.dart';
 import 'package:breach/data/common/api_path.dart';
 import 'package:breach/data/common/api_response_model.dart';
-import 'package:breach/data/models/register_request.dart';
-import 'package:breach/data/models/register_response.dart';
+import 'package:breach/data/models/auth_request.dart';
+import 'package:breach/data/models/auth_response.dart';
 
 mixin AuthEndpoints {
-  Future<ApiResult<RegisterResponse>> register({
-    required RegisterRequest request,
-  }) {
-    final apiClient = ApiClient();
-    return apiClient.postJson(
+  final _apiClient = ApiClient();
+  Future<ApiResult<AuthResponse>> register({required AuthRequest request}) {
+    return _apiClient.postJson(
       ApiPath.register,
       data: request.toJson(),
-      fromJsonT: RegisterResponse.fromJson,
+      fromJsonT: AuthResponse.fromJson,
+    );
+  }
+
+  Future<ApiResult<AuthResponse>> login({required AuthRequest request}) {
+    return _apiClient.postJson(
+      ApiPath.login,
+      data: request.toJson(),
+      fromJsonT: AuthResponse.fromJson,
     );
   }
 }
