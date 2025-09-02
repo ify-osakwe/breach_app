@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void goToNextPage() async {
     await Future.delayed(Duration(milliseconds: 1500));
-    context.go(Routes.posts);
+    context.go(Routes.register);
   }
 
   @override

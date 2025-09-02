@@ -2,6 +2,7 @@ import 'package:breach/routes/routes.dart';
 import 'package:breach/routes/routes_branches.dart';
 import 'package:breach/screens/nav/nav_screen.dart';
 import 'package:breach/screens/posts/ui/posts_screen.dart';
+import 'package:breach/screens/register/ui/register_screen.dart';
 import 'package:breach/screens/splash/splash_screen.dart';
 import 'package:breach/screens/streams/ui/stream_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +16,10 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.splash,
     builder: (context, state) => const SplashScreen(),
+  ),
+  GoRoute(
+    path: Routes.register,
+    builder: (context, state) => const RegisterScreen(),
   ),
   StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
