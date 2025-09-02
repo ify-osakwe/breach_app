@@ -1,4 +1,5 @@
 import 'package:breach/routes/routes_top.dart';
+import 'package:breach/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         title: 'Breach',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          fontFamily: 'Inter',
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.purple600),
         ),
         routerConfig: goRouter,
       ),
