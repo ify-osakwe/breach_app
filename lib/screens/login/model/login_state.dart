@@ -1,23 +1,23 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-class RegisterState extends Equatable {
+class LoginState extends Equatable {
   final bool isLoading;
   final TextEditingController emailController;
   final TextEditingController passwordController;
 
-  const RegisterState({
+  const LoginState({
     required this.isLoading,
     required this.emailController,
     required this.passwordController,
   });
 
-  RegisterState copyWith({
+  LoginState copyWith({
     bool? isLoading,
     TextEditingController? emailController,
     TextEditingController? passwordController,
   }) {
-    return RegisterState(
+    return LoginState(
       isLoading: isLoading ?? this.isLoading,
       emailController: emailController ?? this.emailController,
       passwordController: passwordController ?? this.passwordController,

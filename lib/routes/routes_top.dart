@@ -1,5 +1,6 @@
 import 'package:breach/routes/routes.dart';
 import 'package:breach/routes/routes_branches.dart';
+import 'package:breach/screens/login/ui/login_screen.dart';
 import 'package:breach/screens/nav/nav_screen.dart';
 import 'package:breach/screens/posts/ui/posts_screen.dart';
 import 'package:breach/screens/register/ui/register_screen.dart';
@@ -21,6 +22,7 @@ List<RouteBase> topRoutes = [
     path: Routes.register,
     builder: (context, state) => const RegisterScreen(),
   ),
+  GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
   StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
       return NavScreen(navigationShell: navigationShell);
