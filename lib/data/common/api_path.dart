@@ -9,4 +9,5 @@ abstract class ApiPath {
       "api/blog/posts?categoryId=$categoryId";
 
   static saveUserInterest(int userId) => "/api/users/$userId/interests";
+  static getUserInterest(int userId) => "/api/users/$userId/interests";
 }

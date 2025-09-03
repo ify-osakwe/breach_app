@@ -4,7 +4,7 @@ import 'package:breach/data/breach_api.dart';
 import 'package:breach/data/common/api_response_model.dart';
 import 'package:breach/data/local/secure_storage.dart';
 import 'package:breach/data/models/categories_list_reponse.dart';
-import 'package:breach/data/models/save_interest_request.dart';
+import 'package:breach/data/models/user_interest_request.dart';
 import 'package:breach/routes/routes.dart';
 import 'package:breach/screens/personalise/model/personalise_state.dart';
 import 'package:flutter/widgets.dart';
@@ -36,7 +36,7 @@ class PersonaliseNotifier extends Notifier<PersonaliseState> {
     final userId = await SecureStorage.instance.getUserId() ?? '';
     final authToken = await SecureStorage.instance.getAuthToken() ?? '';
     state = state.copyWith(isLoading: true);
-    final request = SaveInterestRequest(interests: ids);
+    final request = UserInterestRequest(interests: ids);
     try {
       final apiResult = await BreachApi.instance.saveUserInterests(
         userId: int.parse(userId),
