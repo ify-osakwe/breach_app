@@ -1,3 +1,4 @@
+import 'package:breach/utils/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class LinearLoadingIndicator extends StatelessWidget {
         ? const LinearProgressIndicator(
             minHeight: 2,
             backgroundColor: Colors.white,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.purple600),
           )
         : const SizedBox.shrink();
   }

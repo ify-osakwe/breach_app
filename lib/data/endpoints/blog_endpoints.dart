@@ -1,1 +1,24 @@
-mixin BlogEndpoints {}
+import 'package:breach/data/common/api_client.dart';
+import 'package:breach/data/common/api_path.dart';
+import 'package:breach/data/common/api_response_model.dart';
+import 'package:breach/data/models/categories_list_reponse.dart';
+
+mixin BlogEndpoints {
+  final _apiClient = ApiClient();
+
+  Future<ApiResult<CategoriesListResponse>> getCategories() {
+    return _apiClient.getJsonList(
+      ApiPath.getCategories,
+      fromJsonList: CategoriesListResponse.fromJsonList,
+    );
+  }
+
+  Future<ApiResult<CategoriesPostResponse>> getPostsByCategory({
+    required int categoryId,
+  }) {
+    return _apiClient.getJsonList(
+      ApiPath.getPostByCategory(categoryId),
+      fromJsonList: CategoriesPostResponse.fromJsonList,
+    );
+  }
+}

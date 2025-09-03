@@ -39,7 +39,7 @@ class LoginNotifier extends Notifier<LoginState> {
           await SecureStorage.instance.setUserId("${authResponse.userId}");
           context.go(Routes.posts);
           break;
-        case ApiFailure(error: final errorResponse):
+        case ApiFailure(error: final _):
           break;
       }
     } finally {

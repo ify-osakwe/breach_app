@@ -22,3 +22,8 @@ class ApiFailure<T> extends ApiResult<T> {
 sealed class ApiResult<T> {
   const ApiResult();
 }
+
+/// Represents a successful response with no content/body.
+class EmptyResponse {
+  const EmptyResponse();
+}
