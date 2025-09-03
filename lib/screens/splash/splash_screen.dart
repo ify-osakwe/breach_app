@@ -25,6 +25,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Icon(Icons.newspaper, size: 40)));
+    return Scaffold(
+      body: Center(
+        child: CircleAvatar(
+          child: CircleAvatar(
+            radius: 100,
+            child: Image.asset(scale: 1.5, "assets/images/beaver.png"),
+          ),
+        ),
+      ),
+    );
   }
 }
