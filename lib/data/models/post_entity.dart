@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:breach/data/models/categories_list_reponse.dart';
 
 class PostEntity {
@@ -72,4 +74,29 @@ class PostSeries {
       PostSeries(id: json['id'] as int, name: json['name'] as String);
 
   Map<String, dynamic> toJson() => {'id': id, 'name': name};
+}
+
+class CategoriesPostResponse {
+  final List<PostEntity> posts;
+
+  const CategoriesPostResponse({required this.posts});
+
+  factory CategoriesPostResponse.fromJsonList(List<dynamic> json) =>
+      CategoriesPostResponse(
+        posts: json
+            .map((e) => PostEntity.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+
+  factory CategoriesPostResponse.fromJsonString(String source) {
+    final decoded = jsonDecode(source);
+    if (decoded is! List) {
+      throw const FormatException(
+        'Expected a JSON array for categories response',
+      );
+    }
+    return CategoriesPostResponse.fromJsonList(decoded);
+  }
+
+  List<Map<String, dynamic>> toJson() => posts.map((c) => c.toJson()).toList();
 }

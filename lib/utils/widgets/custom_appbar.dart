@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-class StreamScreenAppbar extends StatelessWidget
-    implements PreferredSizeWidget {
-  const StreamScreenAppbar({super.key});
+class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppbar({super.key, required this.title, required this.subtitle});
+
+  final String title;
+  final String subtitle;
 
   @override
   Size get preferredSize => const Size.fromHeight(120);
@@ -18,13 +20,13 @@ class StreamScreenAppbar extends StatelessWidget
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Streams',
+              title,
               style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 8),
             Flexible(
               child: Text(
-                'Discover trending content from topics you care about in real time',
+                subtitle,
                 style: t.bodyMedium?.copyWith(
                   color: Colors.black.withValues(alpha: 0.7),
                   height: 1.2,

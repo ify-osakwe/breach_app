@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:breach/data/models/post_entity.dart';
-
 class Category {
   final int id;
   final String name;
@@ -44,29 +42,4 @@ class CategoriesListResponse {
 
   List<Map<String, dynamic>> toJson() =>
       categories.map((c) => c.toJson()).toList();
-}
-
-class CategoriesPostResponse {
-  final List<PostEntity> posts;
-
-  const CategoriesPostResponse({required this.posts});
-
-  factory CategoriesPostResponse.fromJsonList(List<dynamic> json) =>
-      CategoriesPostResponse(
-        posts: json
-            .map((e) => PostEntity.fromJson(e as Map<String, dynamic>))
-            .toList(),
-      );
-
-  factory CategoriesPostResponse.fromJsonString(String source) {
-    final decoded = jsonDecode(source);
-    if (decoded is! List) {
-      throw const FormatException(
-        'Expected a JSON array for categories response',
-      );
-    }
-    return CategoriesPostResponse.fromJsonList(decoded);
-  }
-
-  List<Map<String, dynamic>> toJson() => posts.map((c) => c.toJson()).toList();
 }

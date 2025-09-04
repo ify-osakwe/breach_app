@@ -29,7 +29,7 @@ class RecentStreamItemsNotifier extends Notifier<List<StreamItem>> {
   List<StreamItem> build() => const [];
 
   void add(StreamItem item) {
-    state = [item, ...state.take(5)];
+    state = [item, ...state.take(4)];
   }
 
   void clear() => state = const [];

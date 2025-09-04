@@ -16,7 +16,7 @@ class StreamListItem extends StatelessWidget {
       children: [
         Text(
           article.title.toUpperCase(),
-          style: t.titleLarge?.copyWith(fontWeight: FontWeight.w600),
+          style: t.titleMedium?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 10),
         Text(
