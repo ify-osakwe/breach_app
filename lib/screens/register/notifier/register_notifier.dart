@@ -19,17 +19,32 @@ class RegisterNotifier extends Notifier<RegisterState> {
   RegisterState build() {
     return RegisterState(
       isLoading: false,
+      enableButton: false,
       emailController: TextEditingController(),
       passwordController: TextEditingController(),
     );
   }
 
+  void validateInputs() {
+    final enabled = isValidInput();
+    if (state.enableButton != enabled) {
+      state = state.copyWith(enableButton: enabled);
+    }
+  }
+
   Future<void> register({required BuildContext context}) async {
+    final email = state.emailController.text.trim();
+    final pass = state.passwordController.text;
+    final emailOkay = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
+    if (!emailOkay && pass.isEmpty) {
+      return;
+    }
+    //
+    state = state.copyWith(isLoading: true, enableButton: true);
     final request = AuthRequest(
       email: state.emailController.text,
       password: state.passwordController.text,
     );
-    state = state.copyWith(isLoading: true);
     try {
       final apiResult = await BreachApi.instance.register(request: request);
       switch (apiResult) {
@@ -42,7 +57,14 @@ class RegisterNotifier extends Notifier<RegisterState> {
           debugPrint("Error ${errorResponse.error},${errorResponse.message}");
       }
     } finally {
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, enableButton: false);
     }
+  }
+
+  bool isValidInput() {
+    final email = state.emailController.text.trim();
+    final pass = state.passwordController.text;
+    final emailOk = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
+    return emailOk && pass.isNotEmpty;
   }
 }
