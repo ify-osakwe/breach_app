@@ -5,19 +5,19 @@ import 'package:breach/data/common/api_response_model.dart';
 import 'package:breach/data/local/secure_storage.dart';
 import 'package:breach/data/models/auth_request.dart';
 import 'package:breach/routes/routes.dart';
-import 'package:breach/screens/register/model/register_state.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:breach/screens/auth/model/auth_state.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-final registerProvider = NotifierProvider<RegisterNotifier, RegisterState>(
-  RegisterNotifier.new,
+final authProvider = NotifierProvider.autoDispose<AuthNotifier, AuthState>(
+  AuthNotifier.new,
 );
 
-class RegisterNotifier extends Notifier<RegisterState> {
+class AuthNotifier extends AutoDisposeNotifier<AuthState> {
   @override
-  RegisterState build() {
-    return RegisterState(
+  AuthState build() {
+    return AuthState(
       isLoading: false,
       enableButton: false,
       emailController: TextEditingController(),
@@ -66,5 +66,28 @@ class RegisterNotifier extends Notifier<RegisterState> {
     final pass = state.passwordController.text;
     final emailOk = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
     return emailOk && pass.isNotEmpty;
+  }
+
+  Future<void> login({required BuildContext context}) async {
+    final request = AuthRequest(
+      email: state.emailController.text,
+      password: state.passwordController.text,
+    );
+    state = state.copyWith(isLoading: true);
+    try {
+      final apiResult = await BreachApi.instance.login(request: request);
+      switch (apiResult) {
+        case ApiSuccess(data: final authResponse):
+          debugPrint('Login succesful');
+          await SecureStorage.instance.setAuthToken(authResponse.token);
+          await SecureStorage.instance.setUserId("${authResponse.userId}");
+          context.go(Routes.posts);
+          break;
+        case ApiFailure(error: final _):
+          break;
+      }
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
   }
 }

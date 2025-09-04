@@ -1,4 +1,4 @@
-import 'package:breach/screens/register/notifier/register_notifier.dart';
+import 'package:breach/screens/auth/notifier/auth_notifier.dart';
 import 'package:breach/utils/theme/app_ui_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +13,7 @@ class RegisterEmail extends ConsumerStatefulWidget {
 class _RegisterEmailState extends ConsumerState<RegisterEmail> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(registerProvider);
+    final state = ref.watch(authProvider);
     return Column(
       children: [
         Align(
@@ -28,8 +28,7 @@ class _RegisterEmailState extends ConsumerState<RegisterEmail> {
           decoration: AppUiStyles.inputDecoration.copyWith(
             hintText: 'Enter email',
           ),
-          onChanged: (_) =>
-              ref.read(registerProvider.notifier).validateInputs(),
+          onChanged: (_) => ref.read(authProvider.notifier).validateInputs(),
           validator: (v) {
             final value = v?.trim() ?? '';
             if (value.isEmpty) return 'Email is required';
@@ -57,7 +56,7 @@ class _RegisterPasswordState extends ConsumerState<RegisterPassword> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(registerProvider);
+    final state = ref.watch(authProvider);
     return Column(
       children: [
         Align(
@@ -77,8 +76,7 @@ class _RegisterPasswordState extends ConsumerState<RegisterPassword> {
               icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
             ),
           ),
-          onChanged: (_) =>
-              ref.read(registerProvider.notifier).validateInputs(),
+          onChanged: (_) => ref.read(authProvider.notifier).validateInputs(),
           validator: (v) =>
               (v == null || v.isEmpty) ? 'Password is required' : null,
         ),

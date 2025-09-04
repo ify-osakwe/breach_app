@@ -1,4 +1,4 @@
-import 'package:breach/screens/register/notifier/register_notifier.dart';
+import 'package:breach/screens/auth/notifier/auth_notifier.dart';
 import 'package:breach/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +8,7 @@ class RegisterButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(registerProvider);
+    final state = ref.watch(authProvider);
     return SizedBox(
       width: double.infinity,
       height: 56,
@@ -26,8 +26,7 @@ class RegisterButton extends ConsumerWidget {
           ),
         ),
         onPressed: state.enableButton
-            ? () =>
-                  ref.read(registerProvider.notifier).register(context: context)
+            ? () => ref.read(authProvider.notifier).register(context: context)
             : null,
         child: const Text(
           'Continue',

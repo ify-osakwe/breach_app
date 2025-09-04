@@ -1,7 +1,7 @@
-import 'package:breach/screens/register/notifier/register_notifier.dart';
-import 'package:breach/screens/register/ui_widget/register_button.dart';
-import 'package:breach/screens/register/ui_widget/register_screen_widgets.dart';
-import 'package:breach/screens/register/ui_widget/register_textfields.dart';
+import 'package:breach/screens/auth/notifier/auth_notifier.dart';
+import 'package:breach/screens/auth/ui_widget/register_button.dart';
+import 'package:breach/screens/auth/ui_widget/register_screen_widgets.dart';
+import 'package:breach/screens/auth/ui_widget/register_textfields.dart';
 import 'package:breach/utils/theme/app_colors.dart';
 import 'package:breach/utils/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class RegisterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
-      isLoading: ref.watch(registerProvider).isLoading,
+      isLoading: ref.watch(authProvider).isLoading,
       padding: EdgeInsets.all(12),
       backgroundColor: AppColors.backgroundColor,
       body: ListView(
