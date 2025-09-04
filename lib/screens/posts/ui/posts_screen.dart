@@ -1,5 +1,4 @@
 import 'package:breach/screens/posts/notifier/posts_notifier.dart';
-import 'package:breach/screens/posts/ui_widget/post_screen_list_static.dart';
 import 'package:breach/screens/posts/ui_widget/posts_screen_list.dart';
 import 'package:breach/utils/widgets/custom_appbar.dart';
 import 'package:breach/utils/theme/app_colors.dart';
@@ -43,7 +42,7 @@ class _PostsScreenState extends ConsumerState<PostsScreen> {
                       spacing: 12,
                       runSpacing: 12,
                       children: data.interests.map((value) {
-                        final isSelected = _selectedId == value.id;
+                        final isSelected = _selectedId == value.category.id;
                         return ChoiceChip(
                           label: Text(
                             "${value.category.icon} ${value.category.name}",
@@ -56,11 +55,13 @@ class _PostsScreenState extends ConsumerState<PostsScreen> {
                           selected: isSelected,
                           onSelected: (selected) {
                             setState(() {
-                              _selectedId = selected ? value.id : null;
+                              _selectedId = selected ? value.category.id : null;
                             });
                             ref
                                 .read(postsProvider.notifier)
-                                .getPostByCategory(categoryId: value.id);
+                                .getPostByCategory(
+                                  categoryId: value.category.id,
+                                );
                           },
                           backgroundColor: AppColors.white,
                           selectedColor: AppColors.purple2,

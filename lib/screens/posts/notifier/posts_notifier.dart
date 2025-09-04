@@ -43,7 +43,7 @@ class PostsNotifier extends Notifier<PostsState> {
         case ApiSuccess(data: final response):
           state = state.copyWith(
             isLoading: false,
-            postsList: [...response.posts, ...state.postsList],
+            postsList: [...response.posts],
           );
           break;
         case ApiFailure(error: final error):

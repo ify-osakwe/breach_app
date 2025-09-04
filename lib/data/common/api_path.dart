@@ -27,5 +27,6 @@ abstract class ApiPath {
   /// Builds the WebSocket URL used for real-time communication.
   /// Attaches the provided [authToken] as a `token` query parameter
   /// and returns a secure `wss://` endpoint.
-  static socketUrl(String authToken) => "wss://breach-api-ws.qa.mvm-tech.xyz?token=$authToken";
+  static socketUrl(String authToken) =>
+      "wss://breach-api-ws.qa.mvm-tech.xyz?token=$authToken";
 }
