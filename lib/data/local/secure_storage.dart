@@ -16,7 +16,6 @@ class SecureStorage {
 
   // Storage keys
   static const String _keyAuthToken = 'auth_token';
-  static const String _keyUsername = 'username';
   static const String _keyUserId = 'user_id';
 
   // Auth token
@@ -30,19 +29,6 @@ class SecureStorage {
 
   Future<void> deleteAuthToken() async {
     await _storage.delete(key: _keyAuthToken);
-  }
-
-  // Username
-  Future<void> setUsername(String username) async {
-    await _storage.write(key: _keyUsername, value: username);
-  }
-
-  Future<String?> getUsername() async {
-    return _storage.read(key: _keyUsername);
-  }
-
-  Future<void> deleteUsername() async {
-    await _storage.delete(key: _keyUsername);
   }
 
   // User ID (stored as String)

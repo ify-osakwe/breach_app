@@ -2,15 +2,13 @@
 
 A Flutter app built with Riverpod, GoRouter, Dio, and Secure Storage.
 
-Flutter 3.35.2 • Dart 3.9.0
-
 ## Overview
 
 Breach demonstrates a small but complete flow:
 
 - Splash → Register → Personalise Interests → Posts/Streams (tabbed) via GoRouter
 - API integration (auth, categories, user interests) via Dio
-- WebSocket stream for real-time items
+- WebSocket stream for real-time events
 - State management with Riverpod Notifiers and Providers
 - Secure token and user-id storage
 - Reusable scaffolding, loading overlays, and theming
@@ -58,7 +56,7 @@ The app starts at the Splash screen, then navigates to Register.
 
 6) Streams (`lib/screens/streams/...`)
    - Connects to a WebSocket using the saved auth token.
-   - Listens for items and shows a recent list.
+   - Listens for events and shows a recent list.
 
 ## Project Structure
 
@@ -75,7 +73,7 @@ The app starts at the Splash screen, then navigates to Register.
   - common/
     - `api_client.dart`: Configured Dio client, helpers to parse JSON/object and list responses, error mapping to `ApiResult<T>`.
     - `api_response_model.dart`: `ApiSuccess<T>`, `ApiFailure<T>`, `ApiError`, `EmptyResponse`.
-    - `api_path.dart`: REST paths (QA base paths).
+    - `api_path.dart`: REST paths.
   - endpoints/
     - `auth_endpoints.dart`: register/login.
     - `users_endpoints.dart`: save/get user interests (requires Bearer token).
@@ -124,7 +122,7 @@ The app starts at the Splash screen, then navigates to Register.
 - Base URL and endpoints
   - Base: `ApiClient.baseUrl = https://breach-api.qa.mvm-tech.xyz`
   - Additional paths in `lib/data/common/api_path.dart`
-  - To switch environments, update `ApiClient.baseUrl` and (optionally) `ApiPath`.
+  - To switch environments, update `ApiClient.baseUrl`.
 
 - HTTP
   - `ApiClient.getJson`, `postJson`, `postEmpty`, `getJsonList` wrap Dio calls.
@@ -136,7 +134,7 @@ The app starts at the Splash screen, then navigates to Register.
   - On each message, JSON is decoded to `StreamItem` and added to recent items.
 
 - Local storage
-  - `flutter_secure_storage` stores `auth_token`, `user_id`, `username`.
+  - `flutter_secure_storage` stores `auth_token`, `user_id`.
   - Helpers in `SecureStorage` for set/get/delete and `clearAll`.
 
 ## UI & Theming
@@ -161,8 +159,8 @@ The app starts at the Splash screen, then navigates to Register.
 
 - Auth: register and login endpoints, saving token and userId securely.
 - Interests: fetch categories, select interests, save to backend.
-- Posts: basic interest chips UI; ready to hook into posts API.
-- Streams: live feed via WebSocket with recent-items store.
+- Posts: interest chips to filter list of posts based on categories.
+- Streams: showing the most recent 5 events sent via WebSocket.
 - Navigation: Splash → Auth → Personalise → Tabs (Posts/Streams).
 - Reusable UI shell with progress overlays.
 
