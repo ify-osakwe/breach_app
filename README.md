@@ -166,6 +166,12 @@ The app starts at the Splash screen, then navigates to Register.
 - Navigation: Splash → Auth → Personalise → Tabs (Posts/Streams).
 - Reusable UI shell with progress overlays.
 
+## App Demo
+
+Screen recordings of the app running on Android and iOS:
+
+https://drive.google.com/drive/folders/17-TGV7Y_2UV4tx2QEfJ7ymtT37frN3IE?usp=sharing
+
 ## Android APK Build
 
 Use the helper script in the repo root to create a release APK.
