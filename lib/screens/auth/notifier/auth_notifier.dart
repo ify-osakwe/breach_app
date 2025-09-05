@@ -6,6 +6,7 @@ import 'package:breach/data/local/secure_storage.dart';
 import 'package:breach/data/models/auth_request.dart';
 import 'package:breach/routes/routes.dart';
 import 'package:breach/screens/auth/model/auth_state.dart';
+import 'package:breach/utils/widgets/app_snackbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -51,9 +52,10 @@ class AuthNotifier extends AutoDisposeNotifier<AuthState> {
         case ApiSuccess(data: final authResponse):
           await SecureStorage.instance.setAuthToken(authResponse.token);
           await SecureStorage.instance.setUserId("${authResponse.userId}");
-          context.go(Routes.personaliseIntro);
+          context.go(Routes.personaliseScreen);
           break;
         case ApiFailure(error: final errorResponse):
+          context.showAppSnackBar(errorResponse.message);
           debugPrint("Error ${errorResponse.error},${errorResponse.message}");
       }
     } finally {
@@ -83,7 +85,8 @@ class AuthNotifier extends AutoDisposeNotifier<AuthState> {
           await SecureStorage.instance.setUserId("${authResponse.userId}");
           context.go(Routes.posts);
           break;
-        case ApiFailure(error: final _):
+        case ApiFailure(error: final errorResponse):
+          context.showAppSnackBar(errorResponse.message);
           break;
       }
     } finally {

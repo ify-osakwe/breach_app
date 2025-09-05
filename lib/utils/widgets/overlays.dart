@@ -13,7 +13,13 @@ class LoadingIndicatorOverlay extends StatelessWidget {
       children: <Widget>[
         if (isLoading)
           ModalBarrier(color: Colors.transparent, dismissible: false),
-        if (isLoading) const Center(child: CupertinoActivityIndicator()),
+        if (isLoading)
+          const Center(
+            child: CupertinoActivityIndicator(
+              radius: 16,
+              color: AppColors.black,
+            ),
+          ),
       ],
     );
   }

@@ -7,16 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PersonaliseIntroScreen extends ConsumerStatefulWidget {
-  const PersonaliseIntroScreen({super.key});
+class PersonaliseScreen extends ConsumerStatefulWidget {
+  const PersonaliseScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PersonaliseIntroScreenState();
+      _PersonaliseScreenState();
 }
 
-class _PersonaliseIntroScreenState
-    extends ConsumerState<PersonaliseIntroScreen> {
+class _PersonaliseScreenState extends ConsumerState<PersonaliseScreen> {
   //
   final Set<int> _selectedIds = <int>{};
 
@@ -26,13 +25,12 @@ class _PersonaliseIntroScreenState
     final categories = ref.watch(categoriesProvider);
 
     return AppScaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
             LinearLoadingIndicator(loading: state.isLoading),
             PersonaliseTitle(),
-            //
             Expanded(
               child: categories.when(
                 data: (data) {

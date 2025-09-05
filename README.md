@@ -11,7 +11,7 @@ Breach demonstrates a small but complete flow:
 - Splash → Register → Personalise Interests → Posts/Streams (tabbed) via GoRouter
 - API integration (auth, categories, user interests) via Dio
 - WebSocket stream for real-time items
-- State management with Riverpod Notifiers and `FutureProvider`
+- State management with Riverpod Notifiers and Providers
 - Secure token and user-id storage
 - Reusable scaffolding, loading overlays, and theming
 
@@ -40,9 +40,10 @@ The app starts at the Splash screen, then navigates to Register.
 1) Splash (`lib/screens/splash/splash_screen.dart`)
    - Shows logo and after 1.5s navigates to Register.
 
-2) Register (`lib/screens/register/...`)
-   - Captures email/password, calls `BreachApi.register`, and stores `token` + `userId` in secure storage.
-   - Navigates to Personalise Intro on success.
+2) Auth (`lib/screens/auth/...`)
+   - Register: captures email/password, calls `BreachApi.register`, and stores `token` + `userId` in secure storage.
+   - Login: authenticates existing users and stores credentials.
+   - On successful register/login, navigates forward in the flow.
 
 3) Personalise Interests (`lib/screens/personalise/...`)
    - Loads categories with `categoriesProvider`.
@@ -53,7 +54,7 @@ The app starts at the Splash screen, then navigates to Register.
    - Two tabs via `StatefulShellRoute`: Posts and Streams.
 
 5) Posts (`lib/screens/posts/...`)
-   - Reads the user’s interests (`userInterestsProvider`) and shows chips to filter (UI stub for list).
+   - Reads the user’s interests (`userInterestsProvider`) and shows chips to filter.
 
 6) Streams (`lib/screens/streams/...`)
    - Connects to a WebSocket using the saved auth token.
@@ -89,8 +90,7 @@ The app starts at the Splash screen, then navigates to Register.
 
 - lib/screens
   - splash/: splash screen.
-  - register/: state (`RegisterState`), notifier (`RegisterNotifier`), UI.
-  - login/: state (`LoginState`), notifier (`LoginNotifier`), UI.
+  - auth/: auth state, notifier, and UI (`login_screen.dart`, `register_screen.dart`).
   - personalise/: state, notifier, intro UI + chips.
   - posts/: notifier for interests, UI stub for post list/filter.
   - streams/: stream provider, recent items notifier, widgets.
@@ -166,18 +166,39 @@ The app starts at the Splash screen, then navigates to Register.
 - Navigation: Splash → Auth → Personalise → Tabs (Posts/Streams).
 - Reusable UI shell with progress overlays.
 
-## Running Tests
+## Android APK Build
 
-- Widget test scaffold exists at `test/widget_test.dart` (default template). Extend with feature tests as needed.
+Use the helper script in the repo root to create a release APK.
 
-## Notes & Next Steps
+Basic usage
 
-- Env config: consider extracting base URLs to flavors or `.env` (e.g., `flutter_dotenv`) rather than hardcoding.
-- Error UX: surface `ApiFailure` messages to users (snackbars/toasts) where marked with TODOs/prints.
-- Posts list: wire `getPostsByCategory` result to `PostsScreen` and render list items.
-- Auth guards: add route redirects based on presence/validity of token.
-- Input validation: add form validation for email/password fields.
+```
+bash build_mobile.sh
+```
 
-## License
+Options
 
-Private/internal project. Do not distribute.
+- `--clean`: run `flutter clean` before building
+- `--build-number <num>`: override build number
+- `--build-name <name>`: override build name (e.g., 1.2.3)
+- `-v`/`--verbose`: verbose Flutter output
+- `-h`/`--help`: show script help
+
+Examples
+
+```
+# Default release APK
+bash build_mobile.sh
+
+# Clean build with version overrides
+bash build_mobile.sh --clean --build-number 42 --build-name 1.2.3
+```
+
+Artifacts
+
+- The APK is written under `build/app/outputs/flutter-apk/` (the script prints found files after the build).
+
+Notes
+
+- Ensure you have the Android toolchain installed (`flutter doctor`).
+- For a signed release, configure signing in `android/app/build.gradle.kts` before running the script.

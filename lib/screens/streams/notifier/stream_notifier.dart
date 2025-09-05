@@ -12,17 +12,24 @@ final streamNewsProvider = StreamProvider.autoDispose<StreamItem>((ref) async* {
   final channel = IOWebSocketChannel.connect(
     Uri.parse(ApiPath.socketUrl(authToken)),
   );
-
   ref.onDispose(() => channel.sink.close());
+
   try {
     await for (final value in channel.stream) {
-      final data = jsonDecode(value) as Map<String, dynamic>;
-      yield StreamItem.fromJson(data);
+      // Parse JSON off the UI isolate to prevent jank.
+      final item = await compute(_parseStreamItem, value);
+      yield item;
     }
   } catch (e) {
     debugPrint("Error streaming : ${e.toString()}");
   }
 });
+
+// Top-level function required by `compute` to run on a background isolate.
+StreamItem _parseStreamItem(dynamic value) {
+  final data = jsonDecode(value) as Map<String, dynamic>;
+  return StreamItem.fromJson(data);
+}
 
 /// Holds the most recent stream items (up to 5)
 class RecentStreamItemsNotifier extends Notifier<List<StreamItem>> {

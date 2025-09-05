@@ -1,9 +1,11 @@
 import 'package:breach/routes/routes.dart';
+import 'package:breach/utils/theme/app_colors.dart';
+import 'package:breach/utils/widgets/image_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class RegisterLoginText extends StatelessWidget {
-  const RegisterLoginText({super.key});
+class LoginText extends StatelessWidget {
+  const LoginText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,29 @@ class RegisterLoginText extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SignupText extends StatelessWidget {
+  const SignupText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return GestureDetector(
+      onTap: () => context.go(Routes.register),
+      child: Align(
+        alignment: Alignment.center,
+        child: Text(
+          'Create account',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: const Color(0xFF7C3AED),
+            fontWeight: FontWeight.w600,
+            decoration: TextDecoration.underline,
+          ),
+        ),
       ),
     );
   }
@@ -85,6 +110,34 @@ class RegisterHeader extends StatelessWidget {
         color: Colors.black,
         letterSpacing: -0.5,
       ),
+    );
+  }
+}
+
+class LoginHeader extends StatelessWidget {
+  const LoginHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        AvatarWithCornerGlow(
+          radius: 40,
+          backgroundColor: AppColors.backgroundColor,
+          imageAsset: "assets/images/beaver.png",
+        ),
+        SizedBox(height: 20),
+        Text(
+          "Welcome to Breach",
+          textAlign: TextAlign.center,
+          style: theme.textTheme.displaySmall?.copyWith(
+            fontWeight: FontWeight.w800,
+            color: Colors.black,
+            letterSpacing: -0.5,
+          ),
+        ),
+      ],
     );
   }
 }

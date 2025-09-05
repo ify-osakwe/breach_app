@@ -7,7 +7,11 @@ class PostsState extends Equatable {
 
   const PostsState({required this.isLoading, required this.postsList});
 
-  PostsState copyWith({bool? isLoading, List<PostEntity>? postsList}) {
+  PostsState copyWith({
+    bool? isLoading,
+    List<PostEntity>? postsList,
+    bool? isEmptyInterest,
+  }) {
     return PostsState(
       isLoading: isLoading ?? this.isLoading,
       postsList: postsList ?? this.postsList,

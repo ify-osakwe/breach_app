@@ -1,7 +1,7 @@
 import 'package:breach/screens/auth/notifier/auth_notifier.dart';
-import 'package:breach/screens/auth/ui_widget/register_button.dart';
-import 'package:breach/screens/auth/ui_widget/register_screen_widgets.dart';
-import 'package:breach/screens/auth/ui_widget/register_textfields.dart';
+import 'package:breach/screens/auth/ui_widget/auth_button.dart';
+import 'package:breach/screens/auth/ui_widget/auth_screen_widgets.dart';
+import 'package:breach/screens/auth/ui_widget/auth_textfields.dart';
 import 'package:breach/utils/theme/app_colors.dart';
 import 'package:breach/utils/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +16,19 @@ class RegisterScreen extends ConsumerWidget {
       padding: EdgeInsets.all(12),
       backgroundColor: AppColors.backgroundColor,
       body: ListView(
-        children: const [
+        children: [
           SizedBox(height: 24),
           RegisterHeader(),
           SizedBox(height: 12),
           RegisterSubHeader(),
           SizedBox(height: 40),
-          RegisterEmail(),
+          AuthEmail(),
           SizedBox(height: 22),
-          RegisterPassword(),
+          AuthPassword(),
           SizedBox(height: 28),
-          RegisterButton(),
+          AuthButton(text: 'Continue', isRegister: true),
           SizedBox(height: 18),
-          RegisterLoginText(),
+          LoginText(),
           SizedBox(height: 60),
           RegisterTermsText(),
           SizedBox(height: 24),

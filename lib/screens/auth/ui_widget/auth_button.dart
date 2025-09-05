@@ -3,8 +3,11 @@ import 'package:breach/utils/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterButton extends ConsumerWidget {
-  const RegisterButton({super.key});
+class AuthButton extends ConsumerWidget {
+  const AuthButton({super.key, required this.text, required this.isRegister});
+
+  final String text;
+  final bool isRegister;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,10 +29,16 @@ class RegisterButton extends ConsumerWidget {
           ),
         ),
         onPressed: state.enableButton
-            ? () => ref.read(authProvider.notifier).register(context: context)
+            ? () {
+                if (isRegister) {
+                  ref.read(authProvider.notifier).register(context: context);
+                } else {
+                  ref.read(authProvider.notifier).login(context: context);
+                }
+              }
             : null,
-        child: const Text(
-          'Continue',
+        child: Text(
+          text,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),

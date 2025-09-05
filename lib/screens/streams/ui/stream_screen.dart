@@ -1,5 +1,6 @@
 import 'package:breach/screens/streams/notifier/stream_notifier.dart';
 import 'package:breach/screens/streams/ui_widget/stream_list_item.dart';
+import 'package:breach/utils/theme/app_colors.dart';
 import 'package:breach/utils/widgets/custom_appbar.dart';
 import 'package:breach/utils/widgets/app_scaffold.dart';
 import 'package:breach/data/models/stream_item.dart';
@@ -19,6 +20,7 @@ class StreamScreen extends ConsumerWidget {
     final recentItems = ref.watch(recentStreamItemsProvider);
     //
     return AppScaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: CustomAppbar(
         title: 'Streams',
         subtitle:
@@ -29,11 +31,14 @@ class StreamScreen extends ConsumerWidget {
           Divider(indent: 4, endIndent: 4),
           recentItems.isEmpty
               ? Center(
-                  child: Text(
-                    'No items yet',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(color: Colors.black54),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'No items yet',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleMedium?.copyWith(color: Colors.black54),
+                    ),
                   ),
                 )
               : Expanded(

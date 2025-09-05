@@ -3,14 +3,14 @@ import 'package:breach/utils/theme/app_ui_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterEmail extends ConsumerStatefulWidget {
-  const RegisterEmail({super.key});
+class AuthEmail extends ConsumerStatefulWidget {
+  const AuthEmail({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _RegisterEmailState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AuthEmailState();
 }
 
-class _RegisterEmailState extends ConsumerState<RegisterEmail> {
+class _AuthEmailState extends ConsumerState<AuthEmail> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(authProvider);
@@ -43,15 +43,14 @@ class _RegisterEmailState extends ConsumerState<RegisterEmail> {
   }
 }
 
-class RegisterPassword extends ConsumerStatefulWidget {
-  const RegisterPassword({super.key});
+class AuthPassword extends ConsumerStatefulWidget {
+  const AuthPassword({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _RegisterPasswordState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AuthPasswordState();
 }
 
-class _RegisterPasswordState extends ConsumerState<RegisterPassword> {
+class _AuthPasswordState extends ConsumerState<AuthPassword> {
   bool _obscure = true;
 
   @override

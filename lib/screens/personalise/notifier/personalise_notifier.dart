@@ -7,6 +7,7 @@ import 'package:breach/data/models/categories_list_reponse.dart';
 import 'package:breach/data/models/user_interest_request.dart';
 import 'package:breach/routes/routes.dart';
 import 'package:breach/screens/personalise/model/personalise_state.dart';
+import 'package:breach/screens/posts/notifier/posts_notifier.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -45,6 +46,7 @@ class PersonaliseNotifier extends Notifier<PersonaliseState> {
       );
       switch (apiResult) {
         case ApiSuccess(data: final _):
+          ref.invalidate(userInterestsProvider);
           context.go(Routes.posts);
           break;
         case ApiFailure(error: final error):
